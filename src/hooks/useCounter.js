@@ -5,10 +5,12 @@ export const useCountrer = (initialState = 10) => {
 
   const increment = () => setState(state + 1);
   const decrement = () => setState(state - 1);
+  const reset = () => setState(initialState);
   
   return {
     state,
     increment,
-    decrement
+    decrement,
+    reset
   }
 };
