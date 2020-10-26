@@ -4,7 +4,7 @@ import { TodoListItem } from './TodoListItem';
 export const TodoList = ({ todos, handleDelete, handleToggle }) => {
   return (
     <ul>
-      {todos.map((todo, i) => (
+      {todos.length>0?todos.map((todo, i) => (
         <TodoListItem
           key={todo.id}
           todo={todo}
@@ -12,7 +12,7 @@ export const TodoList = ({ todos, handleDelete, handleToggle }) => {
           handleDelete={handleDelete}
           handleToggle={handleToggle}
         />
-      ))}
+      )):<span></span>}
     </ul>
   );
 };

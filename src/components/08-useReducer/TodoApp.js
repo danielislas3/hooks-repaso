@@ -1,13 +1,12 @@
-import React from 'react';
-import { useReducer } from 'react';
+import React,{useReducer,useEffect} from 'react';
 import { todoReducer } from './todoReducer';
-import './styles.css';
-import { useEffect } from 'react';
 import { TodoList } from './TodoList';
 import { TodoAdd } from './TodoAdd';
+import './styles.css';
 
 const init = () => {
   return JSON.parse(localStorage.getItem('todos')) || [];
+
 };
 
 export const TodoApp = () => {
@@ -35,9 +34,8 @@ export const TodoApp = () => {
 
   const handleAddTodo = newTodo => {
     dispatch({
-      id: new Date().getTime(),
-      desc: newTodo,
-      done: false,
+      type: 'add',
+      payload: newTodo,
     });
   };
 

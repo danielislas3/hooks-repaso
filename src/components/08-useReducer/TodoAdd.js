@@ -18,6 +18,7 @@ export const TodoAdd = ({ handleAddTodo }) => {
     };
 
     handleAddTodo(newTodo);
+    console.log('setSatatse');
 
     reset();
   };
