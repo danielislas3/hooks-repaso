@@ -28,6 +28,14 @@ export const TodoApp = () => {
 
     despatch(action);
   };
+
+  const handleToogle = todoId => {
+    despatch({
+      type: 'toggle',
+      payload: todoId,
+    });
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
     if (description.trim().length <= 1) {
@@ -57,7 +65,9 @@ export const TodoApp = () => {
           <ul>
             {todos.map((todo, i) => (
               <li key={todo.id} className='list-group-item list-group-flush'>
-                <p className='text-center'>
+                <p
+                  className={`${todo.done && 'complete'}`}
+                  onClick={() => handleToogle(todo.id)}>
                   {' '}
                   {i + 1}.- {todo.desc}
                 </p>
