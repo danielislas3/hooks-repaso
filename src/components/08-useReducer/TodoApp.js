@@ -3,22 +3,31 @@ import { useReducer } from 'react';
 import { todoReducer } from './todoReducer';
 import { useForm } from '../../hooks/useForm';
 import './styles.css';
+import { useEffect } from 'react';
 
 const init = () => {
-  return [ {
-    id: new Date().getTime(),
-    desc: 'comprar huevos',
-    done: false,
-  }];
+  return JSON.parse(localStorage.getItem('todos')) || [];
 };
 
 export const TodoApp = () => {
-  const [todos, despatch] = useReducer(todoReducer,[],init);
+  const [todos, despatch] = useReducer(todoReducer, [], init);
 
   const [{ description }, handleInputChange, reset] = useForm({
     description: '',
   });
 
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
+
+  const handleDelete = todoId => {
+    const action = {
+      type: 'delete',
+      payload: todoId,
+    };
+
+    despatch(action);
+  };
   const handleSubmit = e => {
     e.preventDefault();
     if (description.trim().length <= 1) {
@@ -52,7 +61,13 @@ export const TodoApp = () => {
                   {' '}
                   {i + 1}.- {todo.desc}
                 </p>
-                <button className='btn btn-danger'>Borrar</button>
+                <button
+                  onClick={() => {
+                    handleDelete(todo.id);
+                  }}
+                  className='btn btn-danger'>
+                  Borrar
+                </button>
               </li>
             ))}
           </ul>
